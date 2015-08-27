@@ -9,6 +9,7 @@
  */
 package org.jruby.truffle.nodes.time;
 
+import com.oracle.truffle.api.CompilerDirectives.TruffleBoundary;
 import com.oracle.truffle.api.frame.VirtualFrame;
 import com.oracle.truffle.api.object.DynamicObject;
 import com.oracle.truffle.api.source.SourceSection;
@@ -40,6 +41,7 @@ public class ReadTimeZoneNode extends RubyNode {
         TZ = Layouts.STRING.createString(getContext().getCoreLibrary().getStringFactory(), RubyString.encodeBytelist("TZ", UTF8Encoding.INSTANCE), StringSupport.CR_7BIT, null);
     }
 
+    @TruffleBoundary
     @Override
     public Object execute(VirtualFrame frame) {
         final Object tz = hashNode.call(frame, envNode.execute(frame), "[]", null, TZ);
